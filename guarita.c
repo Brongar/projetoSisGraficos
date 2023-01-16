@@ -3,6 +3,10 @@
 // Para Windows, pode-se utilizar MSYS2 instalando as dependencias com pacman
 // gcc guarita.c -lopengl32 -lfreeglut
 
+//Linux-ubuntu 18.04
+// gcc -o guarita guarita.c -lGL -lglut -lm
+// ./guarita
+
 #include <GL/glut.h>
 #include <GL/gl.h>
 #include <math.h>
@@ -66,67 +70,93 @@ void reshape(GLsizei w, GLsizei h)
 void keyboard(unsigned char key, int x, int y)
 {        
     switch (key) {
-        case 'd': // Transladar para a direita
+         case 'd': // Transladar para a direita
+            {
             float matrixTXP [16] = {0};
             translate(matrixTXP, 0.2, 0, 0);
             glMultMatrixf(matrixTXP);
             break;
+            }
         case 'w': // Transladar para frente
+            {
             float matrixTYP [16] = {0};
             translate(matrixTYP, 0, 0.2, 0);
             glMultMatrixf(matrixTYP);
             break;
+            }
+
         case 'a': // Transladar para a esquerda
+            {
             float matrixTXN [16] = {0};
             translate(matrixTXN, -0.2, 0, 0);
             glMultMatrixf(matrixTXN);
             break;
+            }
         case 's': // Transladar para baixo
+            {
             float matrixTYN [16] = {0};
             translate(matrixTYN, 0, -0.2, 0);
             glMultMatrixf(matrixTYN);
             break;
+            }
         case 'q': // Transladar para a tela ("near")
+            {
             float matrixTZP [16] = {0};
             translate(matrixTZP, 0, 0, 0.2);
             glMultMatrixf(matrixTZP);
             break;
+            }
         case 'e': // Transladar para longe ("far")
+            {
             float matrixTZN [16] = {0};
             translate(matrixTZN, 0, 0, -0.2);
             glMultMatrixf(matrixTZN);
             break;
+            }
         case 'r': // Rotação em volta do eixo X
+            {
             float matrixRX [16] = {0};
             rotateX(matrixRX, 5);
             glMultMatrixf(matrixRX);
             break;
+            }
         case 't': // Rotação em volta do eixo Y
+            {
             float matrixRY [16] = {0};
             rotateY(matrixRY, 5);
             glMultMatrixf(matrixRY);
             break;
+            }
         case 'y': // Rotação em volta do eixo Z
+            {
             float matrixRZ [16] = {0};
             rotateZ(matrixRZ, 5);
             glMultMatrixf(matrixRZ);
             break;
+            }
         case 'z': // Escala do eixo X
+            {
             float matrixSX [16] = {0};
             scale(matrixSX, 1.2, 1, 1);
             glMultMatrixf(matrixSX);
             break;
-        case 'x': // Escala do eixo Y
+            }
+        case 'x':
+            { // Escala do eixo Y
             float matrixSY [16] = {0};
             scale(matrixSY, 1, 1.2, 1);
             glMultMatrixf(matrixSY);
             break;
+            }
         case 'c': // Escala do eixo Z
+            {
             float matrixSZ [16] = {0};
             scale(matrixSZ, 1, 1, 1.2);
             glMultMatrixf(matrixSZ);
             break;
+            }
         case 'l': // Projeção Frustum/Perspectiva
+            {
             glLoadIdentity();
             float matrixP [16] = {0};
             // left right bottom top near far
@@ -138,7 +168,9 @@ void keyboard(unsigned char key, int x, int y)
             translate(rMatrixTP, 0, 0, -1.5);
             glMultMatrixf(rMatrixTP);
             break;
+            }
         case 'k': // Projeção Ortogonal
+            {
             glLoadIdentity();
             float matrixO [16] = {0};
             // left right bottom top near far
@@ -150,9 +182,12 @@ void keyboard(unsigned char key, int x, int y)
             translate(rMatrixTO, 0, 0, -2);
             glMultMatrixf(rMatrixTO);
             break;
+            }
         case 'm': // Reset
+            {
             glLoadIdentity();
             break;
+            }
         default:
             printf("Comando invalido! %d\n",key);
     };
@@ -210,3 +245,8 @@ int main(int argc, char** argv) {
     glutMainLoop();
     return 0;
 }
+//git reset --hard [sua branch]
+//git add .
+//git commit -m "...blablabla"
+//git push origin [sua branch]
+//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
