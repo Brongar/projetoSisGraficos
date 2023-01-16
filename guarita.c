@@ -14,58 +14,26 @@
 // Função de desenho
 void display(void)
 {
-    glClearColor (1.0, 1.0, 1.0, 0.0);
+    // Habilita visibilidade Z-buffer
     glClear( GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT );
     glEnable(GL_DEPTH_TEST);  
 
-    // Define um cubo de cores variadas
-    glBegin(GL_QUADS);
-        glColor3f(1.0f, 0.0f, 0.0f);
-        // FRONT
-        glVertex3f(-0.5f, -0.5f, 0.5f);
-        glColor3f(0.0f, 1.0f, 0.0f);
-        glVertex3f( 0.5f, -0.5f, 0.5f);
-        glVertex3f( 0.5f, 0.5f, 0.5f);
-        glColor3f(1.0f, 0.0f, 0.0f);
-        glVertex3f(-0.5f, 0.5f, 0.5f);
-        // BACK
-        glVertex3f(-0.5f, -0.5f, -0.5f);
-        glVertex3f(-0.5f, 0.5f, -0.5f);
-        glColor3f(0.0f, 1.0f, 0.0f);
-        glVertex3f( 0.5f, 0.5f, -0.5f);
-        glVertex3f( 0.5f, -0.5f, -0.5f);
+    // Define material do cubo -- brass
+    GLfloat ambientM[4]={0.329412, 0.223529, 0.027451, 1.0}; 
+    GLfloat diffuseM[4]={0.780392, 0.568627, 0.113725, 1.0};
+    GLfloat specularM[4]={0.992157, 0.941176, 0.807843, 1.0};
+    glMaterialfv(GL_FRONT, GL_AMBIENT, ambientM);
+    glMaterialfv(GL_FRONT, GL_DIFFUSE, diffuseM);
+    glMaterialfv(GL_FRONT, GL_SPECULAR, specularM);
+    glMaterialf(GL_FRONT, GL_SHININESS, 0.21794872 * 128.0);
 
-        glColor3f(0.0f, 1.0f, 0.0f);
-        // LEFT
-        glVertex3f(-0.5f, -0.5f, 0.5f);
-        glVertex3f(-0.5f, 0.5f, 0.5f);
-        glColor3f(0.0f, 0.0f, 1.0f);
-        glVertex3f(-0.5f, 0.5f, -0.5f);
-        glColor3f(1.0f, 0.0f, 0.0f);
-        glVertex3f(-0.5f, -0.5f, -0.5f);
-        // RIGHT
-        glVertex3f( 0.5f, -0.5f, -0.5f);
-        glVertex3f( 0.5f, 0.5f, -0.5f);
-        glColor3f(0.0f, 1.0f, 0.0f);
-        glVertex3f( 0.5f, 0.5f, 0.5f);
-        glColor3f(0.0f, 0.0f, 1.0f);
-        glVertex3f( 0.5f, -0.5f, 0.5f);
-
-        glColor3f(0.0f, 0.0f, 1.0f);
-        // TOP
-        glVertex3f(-0.5f, 0.5f, 0.5f);
-        glVertex3f( 0.5f, 0.5f, 0.5f);
-        glColor3f(0.0f, 1.0f, 0.0f);
-        glVertex3f( 0.5f, 0.5f, -0.5f);
-        glVertex3f(-0.5f, 0.5f, -0.5f);
-        glColor3f(1.0f, 0.0f, 0.0f);
-        // BOTTOM
-        glVertex3f(-0.5f, -0.5f, 0.5f);
-        glColor3f(0.0f, 0.0f, 1.0f);
-        glVertex3f(-0.5f, -0.5f, -0.5f);
-        glVertex3f( 0.5f, -0.5f, -0.5f);
-        glVertex3f( 0.5f, -0.5f, 0.5f);
-    glEnd();
+    // Define um cubo
+    // Cubo tem 8 vertices, o que, para as luzes utilizadas, não é aplicado specularidade.
+    // Para corrigir isso tem que fazer uma subdivisão do cubo em triangulos com um certo passo (ex: 0.05x triangulos)
+    //float pointA[3] = {-0.3, -0.3, -0.3};
+    //float pointB[3] = {0.3, 0.3, 0.3};
+    //createPoly(pointA, pointB);
+    glutSolidTeapot(0.5f);
 
     glFlush();
     glutSwapBuffers();
@@ -198,6 +166,35 @@ void update(int value) {
     glutTimerFunc(25, update, 0);
 }
 
+// Função para determinar parâmetros de iluminação
+void renderingConfig() {
+    glClearColor (0.0, 0.0, 0.0, 1.0);
+    glShadeModel (GL_SMOOTH);
+
+    GLfloat ambientL[4] = {0.15, 0.15, 0.15, 1.0}; 
+    GLfloat diffuseL[4] = {0.2, 0.9, 0.2, 1.0};
+    GLfloat specularL[4] = {1.0, 1.0, 1.0, 1.0};
+    GLfloat light1[4] = {1.0, 0.0, 0.0, 0}; // 1 on [3] for point location instead of infinity
+
+    glLightfv(GL_LIGHT0, GL_AMBIENT, ambientL); 
+    glLightfv(GL_LIGHT0, GL_DIFFUSE, diffuseL);
+    glLightfv(GL_LIGHT0, GL_SPECULAR, specularL);
+    glLightfv(GL_LIGHT0, GL_POSITION, light1);
+
+    GLfloat light2[4] = {-1.0, 0.0, 0.0, 0}; 
+    GLfloat diffuseL2[4] = {0.9, 0.2, 0.2, 1.0};
+
+    glLightfv(GL_LIGHT1, GL_AMBIENT, ambientL); 
+    glLightfv(GL_LIGHT1, GL_DIFFUSE, diffuseL2);
+    glLightfv(GL_LIGHT1, GL_SPECULAR, specularL);
+    glLightfv(GL_LIGHT1, GL_POSITION, light2);
+
+    //glEnable(GL_COLOR_MATERIAL);
+    glEnable(GL_LIGHTING);
+    glEnable(GL_LIGHT0);
+    glEnable(GL_LIGHT1);
+}
+
 // Programa Principal
 int main(int argc, char** argv) {
     glutInit(&argc, argv);
@@ -208,7 +205,7 @@ int main(int argc, char** argv) {
     glutDisplayFunc(display);
     glutReshapeFunc(reshape);
     glutKeyboardFunc(keyboard);
-
+    renderingConfig();
     glutTimerFunc(25, update, 0);
     glutMainLoop();
     return 0;

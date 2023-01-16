@@ -7,7 +7,7 @@
 #define PI 3.141592654
 
 void frustum(float *array, float l, float r, float b, float t, float n, float f){
-    // Identity matrix
+    // null matrix
     for(int i = 0; i < 16; i++)
     {
         array[i] = 0;
@@ -22,7 +22,7 @@ void frustum(float *array, float l, float r, float b, float t, float n, float f)
 }
 
 void ortho(float *array, float l, float r, float b, float t, float n, float f){
-    // Identity matrix
+    // null matrix
     for(int i = 0; i < 16; i++)
     {
         array[i] = 0;
@@ -37,7 +37,7 @@ void ortho(float *array, float l, float r, float b, float t, float n, float f){
 }
 
 void scale(float *array, float strengthX, float strengthY, float strengthZ){
-    // Identity matrix
+    // null matrix
     for(int i = 0; i < 16; i++)
     {
         array[i] = 0;
@@ -49,7 +49,7 @@ void scale(float *array, float strengthX, float strengthY, float strengthZ){
 }
 
 void translate(float *array, float strengthX, float strengthY, float strengthZ){
-    // Identity matrix
+    // null matrix
     for(int i = 0; i < 16; i++)
     {
         array[i] = 0;
@@ -66,7 +66,7 @@ void translate(float *array, float strengthX, float strengthY, float strengthZ){
 }
 
 void rotateX(float *array, float strength){
-    // Identity matrix
+    // null matrix
     for(int i = 0; i < 16; i++)
     {
         array[i] = 0;
@@ -84,7 +84,7 @@ void rotateX(float *array, float strength){
 }
 
 void rotateY(float *array, float strength){
-    // Identity matrix
+    // null matrix
     for(int i = 0; i < 16; i++)
     {
         array[i] = 0;
@@ -102,7 +102,7 @@ void rotateY(float *array, float strength){
 }
 
 void rotateZ(float *array, float strength){
-    // Identity matrix
+    // null matrix
     for(int i = 0; i < 16; i++)
     {
         array[i] = 0;
@@ -117,4 +117,95 @@ void rotateZ(float *array, float strength){
     GLMATRIX(array, 0, 1) = -sin((strength * PI)/180.0);
     GLMATRIX(array, 1, 0) = sin((strength * PI)/180.0);
     GLMATRIX(array, 1, 1) = cos((strength * PI)/180.0);
+}
+
+void createPoly(float *pointA, float *pointB){
+    // A face -- z fixed
+    // normal to Az direction
+    if(pointA[2] > pointB[2]){
+        glNormal3f(0.0, 0.0, 1.0);
+    } else {
+        glNormal3f(0.0, 0.0, -1.0);
+    }
+    
+    glBegin(GL_QUADS);
+        glVertex3f(pointA[0], pointA[1], pointA[2]);
+        glVertex3f(pointA[0], pointB[1], pointA[2]);
+        glVertex3f(pointB[0], pointB[1], pointA[2]);
+        glVertex3f(pointB[0], pointA[1], pointA[2]);
+    glEnd();
+
+    // B face -- z fixed
+    // normal to Bz direction
+    if(pointB[2] > pointA[2]){
+        glNormal3f(0.0, 0.0, 1.0);
+    } else {
+        glNormal3f(0.0, 0.0, -1.0);
+    }
+
+    glBegin(GL_QUADS);
+        glVertex3f(pointA[0], pointA[1], pointB[2]);
+        glVertex3f(pointA[0], pointB[1], pointB[2]);
+        glVertex3f(pointB[0], pointB[1], pointB[2]);
+        glVertex3f(pointB[0], pointA[1], pointB[2]);
+    glEnd();
+
+    // A-B face -- Ay fixed
+    // normal to Ay direction
+    if(pointA[1] > pointB[1]){
+        glNormal3f(0.0, 1.0, 0.0);
+    } else {
+        glNormal3f(0.0, -1.0, 0.0);
+    }
+    glBegin(GL_QUADS);
+        glVertex3f(pointA[0], pointA[1], pointA[2]);
+        glVertex3f(pointA[0], pointA[1], pointB[2]);
+        glVertex3f(pointB[0], pointA[1], pointB[2]);
+        glVertex3f(pointB[0], pointA[1], pointA[2]);
+    glEnd();
+
+    // A-B face -- By fixed
+    // normal to By direction
+    if(pointB[1] > pointA[1]){
+        glNormal3f(0.0, 1.0, 0.0);
+    } else {
+        glNormal3f(0.0, -1.0, 0.0);
+    }
+
+    glBegin(GL_QUADS);
+        glVertex3f(pointA[0], pointB[1], pointA[2]);
+        glVertex3f(pointA[0], pointB[1], pointB[2]);
+        glVertex3f(pointB[0], pointB[1], pointB[2]);
+        glVertex3f(pointB[0], pointB[1], pointA[2]);
+    glEnd();
+
+    // A-B face -- Ax fixed
+    // normal to Ax direction
+    if(pointA[0] > pointB[0]){
+        glNormal3f(1.0, 0.0, 0.0);
+    } else {
+        glNormal3f(-1.0, 0.0, 0.0);
+    }
+
+    glBegin(GL_QUADS);
+        glVertex3f(pointA[0], pointA[1], pointA[2]);
+        glVertex3f(pointA[0], pointA[1], pointB[2]);
+        glVertex3f(pointA[0], pointB[1], pointB[2]);
+        glVertex3f(pointA[0], pointB[1], pointA[2]);
+    glEnd();
+
+    // A-B face -- Bx fixed
+    // normal to Bx direction
+    if(pointB[0] > pointA[0]){
+        glNormal3f(1.0, 0.0, 0.0);
+    } else {
+        glNormal3f(-1.0, 0.0, 0.0);
+    }
+
+    glBegin(GL_QUADS);
+        glVertex3f(pointB[0], pointA[1], pointA[2]);
+        glVertex3f(pointB[0], pointA[1], pointB[2]);
+        glVertex3f(pointB[0], pointB[1], pointB[2]);
+        glVertex3f(pointB[0], pointB[1], pointA[2]);
+    glEnd();
 }
