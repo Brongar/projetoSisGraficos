@@ -22,7 +22,7 @@ void display(void)
     glClear( GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT );
     glEnable(GL_DEPTH_TEST);  
 
-    // Define material do cubo -- brass
+    // Define material utilizado
     GLfloat ambientM[4]={0.329412, 0.223529, 0.027451, 1.0}; 
     GLfloat diffuseM[4]={0.780392, 0.568627, 0.113725, 1.0};
     GLfloat specularM[4]={0.992157, 0.941176, 0.807843, 1.0};
@@ -31,10 +31,14 @@ void display(void)
     glMaterialfv(GL_FRONT, GL_SPECULAR, specularM);
     glMaterialf(GL_FRONT, GL_SHININESS, 0.21794872 * 128.0);
 
-    // Define um cubo
-    // Cubo tem 8 vertices, o que, para as luzes utilizadas, não é aplicado specularidade.
-    // Para corrigir isso tem que fazer uma subdivisão do cubo em triangulos com um certo passo (ex: 0.05x triangulos)
-    
+    // Teste Triangulo
+    float point2A[3] = {-0.2, -0.2, -0.2};
+    float point2B[3] = {0, 0, 0};
+    createTrianglePoly(point2A, point2B);
+
+    float point3A[3] = {0.2, -0.2, 0.2};
+    float point3B[3] = {0, 0, 0};
+    createTrianglePoly(point3A, point3B);
 
 // #######################    Frente    #######################
 
@@ -62,8 +66,6 @@ void display(void)
     float pointAfPC[3] = {-0.35, 1.3, 0.45};
     float pointBfPC[3] = {0.35, 1.4, 0.4};
     createPoly(pointAfPC, pointBfPC);
-
-
 
 // ####################### Escadas #######################
 
@@ -418,8 +420,12 @@ void update(int value) {
 // Função para determinar parâmetros de iluminação
 void renderingConfig() {
     glClearColor (0.0, 0.0, 0.0, 1.0);
+    // Tonalizacao interpolativa para o modelo de Gouraud
+    // Ja que nosso modelo se constitui de retangulos, nao temos vertices suficientes para
+    // que todos os efeitos da iluminacao tenham um resultado bom
     glShadeModel (GL_SMOOTH);
 
+    // Modelo Phong (combinação de ambiente, difusa e especular)
     GLfloat ambientL[4] = {0.15, 0.15, 0.15, 1.0}; 
     GLfloat diffuseL[4] = {0.2, 0.9, 0.2, 1.0};
     GLfloat specularL[4] = {1.0, 1.0, 1.0, 1.0};
