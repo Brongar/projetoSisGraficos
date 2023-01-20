@@ -34,11 +34,225 @@ void display(void)
     // Define um cubo
     // Cubo tem 8 vertices, o que, para as luzes utilizadas, não é aplicado specularidade.
     // Para corrigir isso tem que fazer uma subdivisão do cubo em triangulos com um certo passo (ex: 0.05x triangulos)
-    //float pointA[3] = {-0.3, -0.3, -0.3};
-    //float pointB[3] = {0.3, 0.3, 0.3};
-    //createPoly(pointA, pointB);
-    glutSolidTeapot(0.5f);
+    
 
+// #######################    Frente    #######################
+
+    //estrutura corpo inferior
+    float pointA[3] = {-0.45, 0, 0.45};
+    float pointB[3] = {0.45, 1, 0.4};    
+    createPoly(pointA, pointB);   
+
+    //Chão 1º andar
+    float pointChao[3] = {-0.4, 0.6, -0.4};
+    float pointDao[3] = {0.4, 0.65, 0.45};
+    createPoly(pointChao, pointDao);
+
+    //Viga lateral direita
+    float pointAfvld[3] = {0.35, 0, 0.45};
+    float pointBfvld[3] = {0.45, 1.4, 0.4};    
+    createPoly(pointAfvld, pointBfvld);
+
+    //Viga lateral esquerda
+    float pointAVfd[3] = {-0.45, 0, 0.45};
+    float pointBVfd[3] = {-0.35, 1.4, 0.4};    
+    createPoly(pointAVfd, pointBVfd);
+
+    //Parede central a cima da janela superior
+    float pointAfPC[3] = {-0.35, 1.3, 0.45};
+    float pointBfPC[3] = {0.35, 1.4, 0.4};
+    createPoly(pointAfPC, pointBfPC);
+
+
+
+// ####################### Escadas #######################
+
+    //8 degraus de 0.1125 por 0.05
+    float alturaDegrau = 0.05;    
+    float comprimentoDegrau = 0.1125;
+    float xMax = 0.45;
+
+// ########### Escada Frente ###########   
+
+    //#####  Degraus #####  
+
+    int x = 1;
+    while (x<=8)
+    {   
+        float pointADegrau1[3] = {xMax-comprimentoDegrau, alturaDegrau*(x-1)    , 0.65};
+        float pointBDgrau1[3]  = {xMax                      , alturaDegrau*x        , 0.45};
+        createPoly(pointADegrau1, pointBDgrau1);
+
+        xMax         =   xMax-comprimentoDegrau;
+        
+        x=x+1;
+
+    }
+
+    // plano escada
+    float pointApe[3] = {-0.65, 0.35, 0.65};
+    float pointBpe[3] = {-0.45, 0.4, 0.45};
+    createPoly(pointApe, pointBpe);
+
+
+     // ########### Escada lateral esquerda ###########
+
+    float zMax = 0.55;
+    int y = 1;
+    while (y<=6)
+    {   
+        
+        float pointADegrau2[3] = {-0.65, 0.35 + (alturaDegrau*(y-1)), zMax-comprimentoDegrau};
+
+        float pointBDgrau2[3]  = {-0.45, 0.4  + (alturaDegrau*(y-1)) ,zMax};
+
+        createPoly(pointADegrau2, pointBDgrau2);
+
+        zMax         =   zMax-comprimentoDegrau;
+        
+        y=y+1;
+
+    }
+
+    // mini piso primeiro andar, da escada para a porta
+    float pointApele[3] = {-0.65, 0.6, -0.115};
+    float pointBpele[3] = {-0.45, 0.65, -0.45};
+    createPoly(pointApele, pointBpele);
+
+
+    // ########### Muro Escada Lateral esquerda ###########
+    
+    //frente LE1
+    float pointAMuroP[3] = {-0.65, 0.6 , -0   };
+    float pointBMuroP[3] = {-0.6 , 0.95, -0.45};    
+    createPoly(pointAMuroP, pointBMuroP);
+
+    //frente LE2
+    float pointAMuroP2[3] = {-0.65, 0.35 , 0.65};
+    float pointBMuroP2[3] = {-0.6 , 0.65,  0.45};    
+    createPoly(pointAMuroP2, pointBMuroP2);
+
+    //frente LE3
+    float pointAMuroP3[3] = {-0.65,  0.6 , 0.65};
+    float pointBMuroP3[3] = {-0.6 , 0.65,  -0.45};  
+    createPoly(pointAMuroP3, pointBMuroP3);
+
+     
+    //Lateral LE
+    float pointAMuroPLE[3] = {-0.65, 0.6  ,  -0.4 };
+    float pointBMuroPLE[3] = {-0.45, 0.95 ,  -0.45};    
+    createPoly(pointAMuroPLE, pointBMuroPLE);
+
+
+
+
+
+// ####################### Costas #######################
+
+    //estrutura corpo costas
+    float pointABack[3] = {-0.45, 0, -0.4};
+    float pointBBack[3] = {0.45, 1, -0.45};    
+    createPoly(pointABack, pointBBack);
+
+    //Viga lateral direita
+    float pointABvld[3] = {-0.45, 0, -0.4};
+    float pointBBvld[3] = {-0.35, 1.4, -0.45};    
+    createPoly(pointABvld, pointBBvld);
+
+    //Viga lateral esquerda
+    float pointAVBd[3] = {0.35, 0, -0.4};
+    float pointBVBd[3] = {0.45, 1.4,-0.45};    
+    createPoly(pointAVBd, pointBVBd);
+
+    //Parede central a cima da janela superior
+    float pointABPC[3] = {-0.35, 1.3, -0.45};
+    float pointBBPC[3] = {0.35, 1.4, -0.4};
+    createPoly(pointABPC, pointBBPC);
+
+
+
+
+// ####################### Lateral esquerda #######################
+
+
+    //estrutura corpo lateral esquerda
+    float pointAlee[3] = {-0.45, 0, 0.4};
+    float pointBlee[3] = {-0.4, 0.65, -0.4};    
+    createPoly(pointAlee, pointBlee);
+
+    //estrutura corpo a baixo da janela
+    float pointAbj[3] = {-0.45,0.65, -0.1};
+    float pointBbj[3] = {-0.4, 1, 0.45};    
+    createPoly(pointAbj, pointBbj);
+
+
+
+    //Viga lateral direita
+    float pointAVled[3] = {-0.45, 0, 0.45};
+    float pointBVled[3] = {-0.4, 1.4, 0.35};    
+    createPoly(pointAVled, pointBVled);
+
+    //Viga lateral esquerda
+    float pointAVlee[3] = {-0.45, 0, -0.45};
+    float pointBVlee[3] = {-0.4, 1.4, -0.35};    
+    createPoly(pointAVlee, pointBVlee);    
+
+    //Parede central a cima da janela superior
+    float pointAPCle[3] = {-0.45, 1.3, 0.4};
+    float pointBPCle[3] = {-0.4, 1.4, -0.45};
+    createPoly(pointAPCle, pointBPCle);
+
+    
+// ####################### Lateral direita #######################
+    
+    //Viga lateral esquerda
+    float pointAVle[3] = {0.4, 0, 0.45};
+    float pointBVle[3] = {0.45, 1.4, 0.35};    
+    createPoly(pointAVle, pointBVle);
+
+    //Viga lateral direita
+    float pointAVld[3] = {0.4, 0, -0.45};
+    float pointBVld[3] = {0.45, 1.4, -0.35};    
+    createPoly(pointAVld, pointBVld);
+
+
+    //Viga Central
+    float pointAVC[3] = {0.4, 0, 0.05};
+    float pointBVC[3] = {0.45, 0.55, -0.05};    
+    createPoly(pointAVC, pointBVC);
+
+
+    //Parede central a baixo da janela superior
+    float pointAPCjs[3] = {0.4, 0.55, 0.4};
+    float pointBPCjs[3] = {0.45, 1, -0.45};
+    createPoly(pointAPCjs, pointBPCjs);
+    
+
+    //Parede central a cima da janela superior
+    float pointAPC[3] = {0.4, 1.3, 0.4};
+    float pointBPC[3] = {0.45, 1.4, -0.45};
+    createPoly(pointAPC, pointBPC);
+
+
+    //Parede a baixo da janela inferior
+    float pointAPJ[3] = {0.4, 0, -0.05};
+    float pointBPJ[3] = {0.45, 0.4, -0.45};
+    createPoly(pointAPJ, pointBPJ);
+   
+    
+
+// ####################### Topo #######################
+    //estrutura cabeça
+    float pointC[3] = {-0.55, 1.4, -0.55};
+    float pointD[3] = {0.55, 1.6, 0.55};
+    createPoly(pointC, pointD);
+
+
+
+
+
+    
+     //glutSolidTeapot(0.5f);
     glFlush();
     glutSwapBuffers();
  }
@@ -234,7 +448,7 @@ void renderingConfig() {
 int main(int argc, char** argv) {
     glutInit(&argc, argv);
     glutInitDisplayMode(GLUT_DOUBLE | GLUT_RGB | GLUT_DEPTH);
-    glutInitWindowSize(400,400);
+    glutInitWindowSize(800,800);
     glutInitWindowPosition (10, 10);
     glutCreateWindow("Guarita");
     glutDisplayFunc(display);
@@ -249,4 +463,4 @@ int main(int argc, char** argv) {
 //git add .
 //git commit -m "...blablabla"
 //git push origin [sua branch]
-//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
+//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u
