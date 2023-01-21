@@ -74,10 +74,7 @@ void display(void)
 
 
 
-    //Muro Frente escada
-    float pointAMuroP[3] = {-0.60, 0 , 0};
-    float pointBMuroP[3] = {-0.45 , 0.95, -0.45};    
-    createPoly(pointAMuroP, pointBMuroP);
+    //Muro Frente
 
 
 
