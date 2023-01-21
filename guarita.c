@@ -31,10 +31,7 @@ void display(void)
     glMaterialfv(GL_FRONT, GL_SPECULAR, specularM);
     glMaterialf(GL_FRONT, GL_SHININESS, 0.21794872 * 128.0);
 
-    // Teste Triangulo
-    float point2A[3] = {0, -0.4, 0};
-    float point2B[3] = {0.1, -0.5, 0.1};
-    createTrianglePoly(point2A, point2B);
+    
 
     
     
@@ -74,7 +71,30 @@ void display(void)
 
 
 
-    //Muro Frente
+    // ###  Muro Frente escada ###
+
+    //Muro inferior direito
+    
+    float pointAMID[3] = {-0.1, 0, 0.65};
+    float pointBMID[3] = {0.45, 0.275, 0.6};
+    createPoly(pointAMID, pointBMID);
+
+    //Muro inferior esquerdo
+    float pointAMIE[3] = {-0.45, 0, 0.65};
+    float pointBMIE[3] = {-0.25, 0.275, 0.6};
+    createPoly(pointAMIE, pointBMIE);
+
+     //Muro inferior viguinha
+    float pointAMIV[3] = {-0.25, 0.225, 0.65};
+    float pointBMIV[3] = {-0.1, 0.275, 0.6};
+    createPoly(pointAMIV, pointBMIV);
+
+    //muro superior esquerdo
+    float pointAMSE[3] = {-0.65, 0.35, 0.65};
+    float pointBMSE[3] = {-0.45, 0.65, 0.6};
+    createPoly(pointAMSE, pointBMSE);
+
+
 
 
 
@@ -92,7 +112,7 @@ void display(void)
     int x = 1;
     while (x<=8)
     {   
-        float pointADegrau1[3] = {xMax-comprimentoDegrau, alturaDegrau*(x-1)    , 0.65};
+        float pointADegrau1[3] = {xMax-comprimentoDegrau, alturaDegrau*(x-1)    , 0.6};
         float pointBDgrau1[3]  = {xMax                      , alturaDegrau*x        , 0.45};
         createPoly(pointADegrau1, pointBDgrau1);
 
@@ -102,10 +122,20 @@ void display(void)
 
     }
 
-    // plano escada
+    // 1º plano escada
     float pointApe[3] = {-0.65, 0.35, 0.65};
     float pointBpe[3] = {-0.45, 0.4, 0.45};
     createPoly(pointApe, pointBpe);
+
+
+
+    //Muro escada
+     //Triangulo superior
+    float pointATS2[3] = {-0.45, 0.65, 0.65 };
+    float pointBTS2[3] = {0.45, 0.275, 0.6};
+    createTrianglePolyRight(pointATS2, pointBTS2);
+
+    
 
 
      // ########### Escada lateral esquerda ###########
@@ -132,13 +162,27 @@ void display(void)
     float pointBpele[3] = {-0.45, 0.65, -0.45};
     createPoly(pointApele, pointBpele);
 
+     //Vigas da escada 
+    float pointAVE[3] = {-0.65, 0.28, 0.45};
+    float pointBVE[3] = {-0.45, 0.35, 0.5};    
+    createPoly(pointAVE, pointBVE);
+
+    float pointAVE2[3] = {-0.65, 0.45, -0.45};
+    float pointBVE2[3] = {-0.45, 0.65, -0.40};    
+    createPoly(pointAVE2, pointBVE2);
+
 
     // ########### Muro Escada Lateral esquerda ###########
     
-    //frente LE1
+    //frente LE1 "Guarda-corpo"
     float pointAMuroP[3] = {-0.65, 0.6 , 0};
     float pointBMuroP[3] = {-0.6 , 0.95, -0.45};    
     createPoly(pointAMuroP, pointBMuroP);
+
+     //frente  tapa "soca-soca" (em baixo da escada  da frente)
+    float pointAMuroEscadinha[3] = {-0.45, 0 , 0.45};
+    float pointBMuroEscadinhaP[3] = {-0.4 , 0.35, 0.6};    
+    createPoly(pointAMuroEscadinha, pointBMuroEscadinhaP);
 
     //Triangulo superior
     float pointATS[3] = {-0.65, 0.95, 0 };
@@ -270,7 +314,7 @@ void display(void)
 // ####################### Topo #######################
     //estrutura cabeça
     float pointC[3] = {-0.55, 1.4, -0.55};
-    float pointD[3] = {0.55, 1.6, 0.55};
+    float pointD[3] = {0.55, 1.5, 0.55};
     createPoly(pointC, pointD);
 
 

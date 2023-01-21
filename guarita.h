@@ -201,6 +201,50 @@ void createTrianglePoly(float *pointA, float *pointB){
 
 }
 
+void createTrianglePolyRight(float *pointA, float *pointB){
+
+// Frente
+    glBegin(GL_TRIANGLES);
+        glVertex3f(pointA[0], pointA[1], pointB[2]);
+        glVertex3f(pointA[0], pointB[1], pointB[2]);
+        glVertex3f(pointB[0], pointB[1], pointB[2]);
+       
+    glEnd();
+
+    // Costas
+    glBegin(GL_TRIANGLES);
+        glVertex3f(pointA[0], pointA[1], pointA[2]);
+        glVertex3f(pointA[0], pointB[1], pointA[2]);
+        glVertex3f(pointB[0], pointB[1], pointA[2]);
+
+    // Inferior
+    glBegin(GL_QUADS);
+        glVertex3f(pointA[0], pointB[1], pointA[2]);
+        glVertex3f(pointB[0], pointB[1], pointA[2]);
+        glVertex3f(pointB[0], pointB[1], pointB[2]);
+        glVertex3f(pointA[0], pointB[1], pointB[2]);
+    glEnd();
+
+    // Quadrado esquerdo
+    glBegin(GL_QUADS);        
+        glVertex3f(pointA[0], pointA[1], pointA[2]);
+        glVertex3f(pointA[0], pointA[1], pointB[2]);
+        glVertex3f(pointA[0], pointB[1], pointB[2]);
+        glVertex3f(pointA[0], pointB[1], pointA[2]);
+    glEnd();
+
+    // Quadrado direito
+    glBegin(GL_QUADS);        
+        glVertex3f(pointA[0], pointA[1], pointA[2]);
+        glVertex3f(pointA[0], pointA[1], pointB[2]);
+
+        glVertex3f(pointB[0], pointB[1], pointB[2]);
+        glVertex3f(pointB[0], pointB[1], pointA[2]);
+    glEnd();
+
+}
+
+
 // ###############  Retangulo ###############
 
 
