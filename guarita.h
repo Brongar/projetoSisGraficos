@@ -119,6 +119,9 @@ void rotateZ(float *array, float strength){
     GLMATRIX(array, 1, 1) = cos((strength * PI)/180.0);
 }
 
+
+// ############### Triangulo retangulo ###############
+
 void createTrianglePoly(float *pointA, float *pointB){
     // B face -- z fixed
     // normal to Bz direction
@@ -126,14 +129,8 @@ void createTrianglePoly(float *pointA, float *pointB){
         glNormal3f(0.0, 0.0, 1.0);
     } else {
         glNormal3f(0.0, 0.0, -1.0);
-    }
+    };
 
-    glBegin(GL_QUADS);
-        glVertex3f(pointA[0], pointA[1], pointB[2]);
-        glVertex3f(pointA[0], pointB[1], pointB[2]);
-        glVertex3f(pointB[0], pointB[1], pointB[2]);
-        glVertex3f(pointB[0], pointA[1], pointB[2]);
-    glEnd();
 
     // A-B face -- Ay fixed
     // normal to Ay direction
@@ -142,13 +139,8 @@ void createTrianglePoly(float *pointA, float *pointB){
     } else {
         glNormal3f(0.0, -1.0, 0.0);
     }
-    glBegin(GL_TRIANGLES);
-        glVertex3f(pointA[0], pointA[1], pointA[2]);
-        glVertex3f(pointA[0], pointA[1], pointB[2]);
-        glVertex3f(pointB[0], pointA[1], pointB[2]);
-    glEnd();
 
-    // A-B face -- By fixed
+     // A-B face -- By fixed
     // normal to By direction
     if(pointB[1] > pointA[1]){
         glNormal3f(0.0, 1.0, 0.0);
@@ -156,13 +148,8 @@ void createTrianglePoly(float *pointA, float *pointB){
         glNormal3f(0.0, -1.0, 0.0);
     }
 
-    glBegin(GL_TRIANGLES);
-        glVertex3f(pointA[0], pointB[1], pointA[2]);
-        glVertex3f(pointA[0], pointB[1], pointB[2]);
-        glVertex3f(pointB[0], pointB[1], pointB[2]);
-    glEnd();
 
-    // A-B face -- Ax fixed
+     // A-B face -- Ax fixed
     // normal to Ax direction
     if(pointA[0] > pointB[0]){
         glNormal3f(1.0, 0.0, 0.0);
@@ -170,23 +157,52 @@ void createTrianglePoly(float *pointA, float *pointB){
         glNormal3f(-1.0, 0.0, 0.0);
     }
 
-    glBegin(GL_QUADS);
-        glVertex3f(pointA[0], pointA[1], pointA[2]);
-        glVertex3f(pointA[0], pointA[1], pointB[2]);
-        glVertex3f(pointA[0], pointB[1], pointB[2]);
-        glVertex3f(pointA[0], pointB[1], pointA[2]);
-    glEnd();
-
     // Sloped face
     glNormal3f(1.0, 0.0, -1.0);
 
+
+    // Frente
     glBegin(GL_QUADS);
         glVertex3f(pointA[0], pointA[1], pointA[2]);
-        glVertex3f(pointB[0], pointA[1], pointB[2]);
+        glVertex3f(pointB[0], pointA[1], pointA[2]);
         glVertex3f(pointB[0], pointB[1], pointB[2]);
+        glVertex3f(pointA[0], pointB[1], pointB[2]);
+    glEnd();
+
+    // Costas
+    glBegin(GL_QUADS);
+        glVertex3f(pointA[0], pointA[1], pointA[2]);
+        glVertex3f(pointB[0], pointA[1], pointA[2]);
+        glVertex3f(pointB[0], pointB[1], pointA[2]);
         glVertex3f(pointA[0], pointB[1], pointA[2]);
     glEnd();
+
+    // Inferior
+    glBegin(GL_QUADS);
+        glVertex3f(pointA[0], pointB[1], pointA[2]);
+        glVertex3f(pointB[0], pointB[1], pointA[2]);
+        glVertex3f(pointB[0], pointB[1], pointB[2]);
+        glVertex3f(pointA[0], pointB[1], pointB[2]);
+    glEnd();
+
+    // Triangulo esquerdo
+    glBegin(GL_TRIANGLES);        
+        glVertex3f(pointB[0], pointA[1], pointA[2]);
+        glVertex3f(pointB[0], pointB[1], pointA[2]);
+        glVertex3f(pointB[0], pointB[1], pointB[2]);
+    glEnd();
+
+    // Triangulo direito
+    glBegin(GL_TRIANGLES);        
+        glVertex3f(pointA[0], pointA[1], pointA[2]);
+        glVertex3f(pointA[0], pointB[1], pointA[2]);
+        glVertex3f(pointA[0], pointB[1], pointB[2]);
+    glEnd();
+
 }
+
+// ###############  Retangulo ###############
+
 
 void createPoly(float *pointA, float *pointB){
     // A face -- z fixed

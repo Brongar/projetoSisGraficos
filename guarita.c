@@ -32,20 +32,25 @@ void display(void)
     glMaterialf(GL_FRONT, GL_SHININESS, 0.21794872 * 128.0);
 
     // Teste Triangulo
-    float point2A[3] = {-0.2, -0.2, -0.2};
-    float point2B[3] = {0, 0, 0};
+    float point2A[3] = {0, -0.4, 0};
+    float point2B[3] = {0.1, -0.5, 0.1};
     createTrianglePoly(point2A, point2B);
 
-    float point3A[3] = {0.2, -0.2, 0.2};
-    float point3B[3] = {0, 0, 0};
-    createTrianglePoly(point3A, point3B);
+    
+    
+    
 
 // #######################    Frente    #######################
 
     //estrutura corpo inferior
     float pointA[3] = {-0.45, 0, 0.45};
     float pointB[3] = {0.45, 1, 0.4};    
-    createPoly(pointA, pointB);   
+    createPoly(pointA, pointB); 
+
+    //Parede interior inferior
+    float pointAint[3] = {0, 0, -0.1};
+    float pointBint[3] = {0.45, 0.6, 0};    
+    createPoly(pointAint, pointBint);   
 
     //Chão 1º andar
     float pointChao[3] = {-0.4, 0.6, -0.4};
@@ -66,6 +71,15 @@ void display(void)
     float pointAfPC[3] = {-0.35, 1.3, 0.45};
     float pointBfPC[3] = {0.35, 1.4, 0.4};
     createPoly(pointAfPC, pointBfPC);
+
+
+
+    //Muro Frente escada
+    float pointAMuroP[3] = {-0.60, 0 , 0};
+    float pointBMuroP[3] = {-0.45 , 0.95, -0.45};    
+    createPoly(pointAMuroP, pointBMuroP);
+
+
 
 // ####################### Escadas #######################
 
@@ -104,7 +118,7 @@ void display(void)
     while (y<=6)
     {   
         
-        float pointADegrau2[3] = {-0.65, 0.35 + (alturaDegrau*(y-1)), zMax-comprimentoDegrau};
+        float pointADegrau2[3] = {-0.60, 0.35 + (alturaDegrau*(y-1)), zMax-comprimentoDegrau};
 
         float pointBDgrau2[3]  = {-0.45, 0.4  + (alturaDegrau*(y-1)) ,zMax};
 
@@ -125,17 +139,29 @@ void display(void)
     // ########### Muro Escada Lateral esquerda ###########
     
     //frente LE1
-    float pointAMuroP[3] = {-0.65, 0.6 , -0   };
+    float pointAMuroP[3] = {-0.65, 0.6 , 0};
     float pointBMuroP[3] = {-0.6 , 0.95, -0.45};    
     createPoly(pointAMuroP, pointBMuroP);
+
+    //Triangulo superior
+    float pointATS[3] = {-0.65, 0.95, 0 };
+    float pointBTS[3] = {-0.60, 0.65, 0.65};
+    createTrianglePoly(pointATS, pointBTS);
+
+    //Triangulo inferior
+    float pointATI[3] = {-0.65, 0.35, 0.45 };
+    float pointBTI[3] = {-0.60, 0.55, 0};
+    createTrianglePoly(pointATI, pointBTI);
+
+
 
     //frente LE2
     float pointAMuroP2[3] = {-0.65, 0.35 , 0.65};
     float pointBMuroP2[3] = {-0.6 , 0.65,  0.45};    
     createPoly(pointAMuroP2, pointBMuroP2);
 
-    //frente LE3
-    float pointAMuroP3[3] = {-0.65,  0.6 , 0.65};
+    //frente LE3 muro fino central
+    float pointAMuroP3[3] = {-0.65,  0.55 , 0.65};
     float pointBMuroP3[3] = {-0.6 , 0.65,  -0.45};  
     createPoly(pointAMuroP3, pointBMuroP3);
 
@@ -145,6 +171,7 @@ void display(void)
     float pointBMuroPLE[3] = {-0.45, 0.95 ,  -0.45};    
     createPoly(pointAMuroPLE, pointBMuroPLE);
 
+    
 
 
 
