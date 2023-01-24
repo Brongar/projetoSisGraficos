@@ -1,11 +1,8 @@
 // Trabalho Gráficos
 // Requer OpenGL e Glut
 // Para Windows, pode-se utilizar MSYS2 instalando as dependencias com pacman
-// gcc guarita.c -lopengl32 -lfreeglut
-
-//Linux-ubuntu 18.04
-// gcc -o guarita guarita.c -lGL -lglut -lm
-// ./guarita
+// Comando Windows: gcc guarita.c -lopengl32 -lfreeglut
+// Comando Linux: gcc guarita.c -lGL -lglut -lm
 
 #include <GL/glut.h>
 #include <GL/gl.h>
@@ -29,15 +26,9 @@ void display(void)
     glMaterialfv(GL_FRONT, GL_AMBIENT, ambientM);
     glMaterialfv(GL_FRONT, GL_DIFFUSE, diffuseM);
     glMaterialfv(GL_FRONT, GL_SPECULAR, specularM);
-    glMaterialf(GL_FRONT, GL_SHININESS, 0.21794872 * 128.0);
+    glMaterialf(GL_FRONT, GL_SHININESS, 0.21794872 * 128.0);  
 
-    
-
-    
-    
-    
-
-// #######################    Frente    #######################
+    // #######################    Frente    #######################
 
     //estrutura corpo inferior
     float pointA[3] = {-0.45, 0, 0.45};
@@ -95,17 +86,14 @@ void display(void)
     createPoly(pointAMSE, pointBMSE);
 
 
-
-
-
-// ####################### Escadas #######################
+    // ####################### Escadas #######################
 
     //8 degraus de 0.1125 por 0.05
     float alturaDegrau = 0.05;    
     float comprimentoDegrau = 0.1125;
     float xMax = 0.45;
 
-// ########### Escada Frente ###########   
+    // ########### Escada Frente ###########   
 
     //#####  Degraus #####  
 
@@ -134,8 +122,6 @@ void display(void)
     float pointATS2[3] = {-0.45, 0.65, 0.65 };
     float pointBTS2[3] = {0.45, 0.275, 0.6};
     createTrianglePolyRight(pointATS2, pointBTS2);
-
-    
 
 
      // ########### Escada lateral esquerda ###########
@@ -212,12 +198,8 @@ void display(void)
     float pointBMuroPLE[3] = {-0.45, 0.95 ,  -0.45};    
     createPoly(pointAMuroPLE, pointBMuroPLE);
 
-    
 
-
-
-
-// ####################### Costas #######################
+    // ####################### Costas #######################
 
     //estrutura corpo costas
     float pointABack[3] = {-0.45, 0, -0.4};
@@ -240,9 +222,7 @@ void display(void)
     createPoly(pointABPC, pointBBPC);
 
 
-
-
-// ####################### Lateral esquerda #######################
+    // ####################### Lateral esquerda #######################
 
 
     //estrutura corpo lateral esquerda
@@ -273,7 +253,7 @@ void display(void)
     createPoly(pointAPCle, pointBPCle);
 
     
-// ####################### Lateral direita #######################
+    // ####################### Lateral direita #######################
     
     //Viga lateral esquerda
     float pointAVle[3] = {0.4, 0, 0.45};
@@ -308,21 +288,14 @@ void display(void)
     float pointAPJ[3] = {0.4, 0, -0.05};
     float pointBPJ[3] = {0.45, 0.4, -0.45};
     createPoly(pointAPJ, pointBPJ);
-   
     
 
-// ####################### Topo #######################
+    // ####################### Topo #######################
     //estrutura cabeça
     float pointC[3] = {-0.55, 1.4, -0.55};
     float pointD[3] = {0.55, 1.5, 0.55};
     createPoly(pointC, pointD);
 
-
-
-
-
-    
-     //glutSolidTeapot(0.5f);
     glFlush();
     glutSwapBuffers();
  }
@@ -336,18 +309,23 @@ void reshape(GLsizei w, GLsizei h)
 
     // Projeção frustum/perspectiva
     float initMatrixP [16] = {0};
-    frustum(initMatrixP, -0.5, 0.5, -0.5, 0.5, 0.5, 20.0);
+    frustum(initMatrixP, -0.55, 0.55, -0.55, 0.55, 0.2, 20.0);
     glMultMatrixf(initMatrixP);
-
-    // Projeção ortogonal
-    //float initMatrixO [16] = {0};
-    //ortho(initMatrixO, -1, 1, -1, 1, 0.5, 20.0);
-    //glMultMatrixf(initMatrixO);
 
     // Move o objeto em cena
     float initMatrixT [16] = {0};
-    translate(initMatrixT, 0, 0, -1.5);
+    translate(initMatrixT, 0, -0.25, -1.5);
     glMultMatrixf(initMatrixT);
+
+    // Projeção ortogonal
+    //float initMatrixO [16] = {0};
+    //ortho(initMatrixO, -1.1, 1.1, -1.1, 1.1, 0.2, 20.0);
+    //glMultMatrixf(initMatrixO);
+
+    // Move o objeto em cena
+    //float initMatrixT [16] = {0};
+    //translate(initMatrixT, 0, -0.45, -1.5);
+    //glMultMatrixf(initMatrixT);
 }
 
 // Controle da cena pelo teclado
@@ -356,13 +334,15 @@ void keyboard(unsigned char key, int x, int y)
     switch (key) {
          case 'd': // Transladar para a direita
             {
+            printf("Translação em +x.\n");
             float matrixTXP [16] = {0};
             translate(matrixTXP, 0.2, 0, 0);
             glMultMatrixf(matrixTXP);
             break;
             }
-        case 'w': // Transladar para frente
+        case 'w': // Transladar para cima
             {
+            printf("Translação em +y.\n");
             float matrixTYP [16] = {0};
             translate(matrixTYP, 0, 0.2, 0);
             glMultMatrixf(matrixTYP);
@@ -371,6 +351,7 @@ void keyboard(unsigned char key, int x, int y)
 
         case 'a': // Transladar para a esquerda
             {
+            printf("Translação em -x.\n");
             float matrixTXN [16] = {0};
             translate(matrixTXN, -0.2, 0, 0);
             glMultMatrixf(matrixTXN);
@@ -378,6 +359,7 @@ void keyboard(unsigned char key, int x, int y)
             }
         case 's': // Transladar para baixo
             {
+            printf("Translação em -y.\n");
             float matrixTYN [16] = {0};
             translate(matrixTYN, 0, -0.2, 0);
             glMultMatrixf(matrixTYN);
@@ -385,6 +367,7 @@ void keyboard(unsigned char key, int x, int y)
             }
         case 'q': // Transladar para a tela ("near")
             {
+            printf("Translação em +z.\n");
             float matrixTZP [16] = {0};
             translate(matrixTZP, 0, 0, 0.2);
             glMultMatrixf(matrixTZP);
@@ -392,6 +375,7 @@ void keyboard(unsigned char key, int x, int y)
             }
         case 'e': // Transladar para longe ("far")
             {
+            printf("Translação em -z.\n");
             float matrixTZN [16] = {0};
             translate(matrixTZN, 0, 0, -0.2);
             glMultMatrixf(matrixTZN);
@@ -399,6 +383,7 @@ void keyboard(unsigned char key, int x, int y)
             }
         case 'r': // Rotação em volta do eixo X
             {
+            printf("Rotação no eixo x.\n");
             float matrixRX [16] = {0};
             rotateX(matrixRX, 5);
             glMultMatrixf(matrixRX);
@@ -406,6 +391,7 @@ void keyboard(unsigned char key, int x, int y)
             }
         case 't': // Rotação em volta do eixo Y
             {
+            printf("Rotação no eixo y.\n");
             float matrixRY [16] = {0};
             rotateY(matrixRY, 5);
             glMultMatrixf(matrixRY);
@@ -413,6 +399,7 @@ void keyboard(unsigned char key, int x, int y)
             }
         case 'y': // Rotação em volta do eixo Z
             {
+            printf("Rotação no eixo z.\n");
             float matrixRZ [16] = {0};
             rotateZ(matrixRZ, 5);
             glMultMatrixf(matrixRZ);
@@ -420,6 +407,7 @@ void keyboard(unsigned char key, int x, int y)
             }
         case 'z': // Escala do eixo X
             {
+            printf("Aumento da dimensão x.\n");
             float matrixSX [16] = {0};
             scale(matrixSX, 1.2, 1, 1);
             glMultMatrixf(matrixSX);
@@ -427,6 +415,7 @@ void keyboard(unsigned char key, int x, int y)
             }
         case 'x':
             { // Escala do eixo Y
+            printf("Aumento da dimensão y.\n");
             float matrixSY [16] = {0};
             scale(matrixSY, 1, 1.2, 1);
             glMultMatrixf(matrixSY);
@@ -434,6 +423,7 @@ void keyboard(unsigned char key, int x, int y)
             }
         case 'c': // Escala do eixo Z
             {
+            printf("Aumento da dimensão z.\n");
             float matrixSZ [16] = {0};
             scale(matrixSZ, 1, 1, 1.2);
             glMultMatrixf(matrixSZ);
@@ -441,35 +431,32 @@ void keyboard(unsigned char key, int x, int y)
             }
         case 'l': // Projeção Frustum/Perspectiva
             {
+            printf("Reset - Projeção Frustum/Perspectiva\n");
             glLoadIdentity();
             float matrixP [16] = {0};
             // left right bottom top near far
-            frustum(matrixP, -0.5, 0.5, -0.5, 0.5, 0.5, 20.0);
+            frustum(matrixP, -0.55, 0.55, -0.55, 0.55, 0.2, 20.0);
             glMultMatrixf(matrixP);
 
             // Move o objeto em cena
             float rMatrixTP [16] = {0};
-            translate(rMatrixTP, 0, 0, -1.5);
+            translate(rMatrixTP, 0, -0.25, -1.5);
             glMultMatrixf(rMatrixTP);
             break;
             }
         case 'k': // Projeção Ortogonal
             {
+            printf("Reset - Projeção Ortogonal\n");
             glLoadIdentity();
             float matrixO [16] = {0};
             // left right bottom top near far
-            ortho(matrixO, -1, 1, -1, 1, 0.5, 20.0);
+            ortho(matrixO, -1.1, 1.1, -1.1, 1.1, 0.2, 20.0);
             glMultMatrixf(matrixO);
 
             // Move o objeto em cena
             float rMatrixTO [16] = {0};
-            translate(rMatrixTO, 0, 0, -2);
+            translate(rMatrixTO, 0, -0.45, -1.5);
             glMultMatrixf(rMatrixTO);
-            break;
-            }
-        case 'm': // Reset
-            {
-            glLoadIdentity();
             break;
             }
         default:
@@ -494,6 +481,7 @@ void renderingConfig() {
     glShadeModel (GL_SMOOTH);
 
     // Modelo Phong (combinação de ambiente, difusa e especular)
+    // Luz 1 verde em +x infinito de raios paralelos
     GLfloat ambientL[4] = {0.15, 0.15, 0.15, 1.0}; 
     GLfloat diffuseL[4] = {0.2, 0.9, 0.2, 1.0};
     GLfloat specularL[4] = {1.0, 1.0, 1.0, 1.0};
@@ -504,6 +492,7 @@ void renderingConfig() {
     glLightfv(GL_LIGHT0, GL_SPECULAR, specularL);
     glLightfv(GL_LIGHT0, GL_POSITION, light1);
 
+    // Luz 2 vermelha em -x infinito de raios paralelos
     GLfloat light2[4] = {-1.0, 0.0, 0.0, 0}; 
     GLfloat diffuseL2[4] = {0.9, 0.2, 0.2, 1.0};
 
@@ -533,8 +522,3 @@ int main(int argc, char** argv) {
     glutMainLoop();
     return 0;
 }
-//git reset --hard [sua branch]
-//git add .
-//git commit -m "...blablabla"
-//git push origin [sua branch]
-//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u
