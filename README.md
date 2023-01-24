@@ -1,8 +1,8 @@
 # Guarita Sistemas Gráficos
 
-Requer OpenGL e Glut
+Requer OpenGL e Glut.
 
-Para Windows, pode-se utilizar MSYS2 instalando as dependencias com pacman
+Para Windows, pode-se utilizar MSYS2 instalando as dependências com pacman.
 
 Comando Windows:
 ```gcc guarita.c -lopengl32 -lfreeglut```
