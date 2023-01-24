@@ -1,5 +1,11 @@
 # Guarita Sistemas Gráficos
 
+Projeto da guarita do C3 realizado em C com OpenGL.
+
+Marcelo Freire Danigno - 116509
+William Henrique de Souza - 76901
+Andrew Flores Brongar - 116500
+
 Requer OpenGL e Glut.
 
 Para Windows, pode-se utilizar MSYS2 instalando as dependências com pacman.
